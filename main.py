@@ -1,12 +1,14 @@
 import pygame
 import os
+import random
+import glob
 
 # pygame setup
 
 WIDTH, HEIGHT = 900, 500
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("OdderTech Game Corner")
-rate = 1
+rate = 60
 ICON_WIDTH, ICON_HEIGHT = 130, 90
 ICON_XPOS_L, ICON_XPOS_M, ICON_XPOS_R = 175, 385, 595
 ICON_YPOS = 170
@@ -18,20 +20,25 @@ Veilstone_7 = pygame.transform.scale(
     pygame.image.load(os.path.join("Assets", "Veilstone_Corner_7.png")),
     (ICON_WIDTH, ICON_HEIGHT),
 )
-Veilstone_Berries = pygame.image.load(
-    os.path.join("Assets", "Veilstone_Corner_Berries.png")
+Veilstone_Berries = pygame.transform.scale(
+    pygame.image.load(os.path.join("Assets", "Veilstone_Corner_Berries.png")),
+    (ICON_WIDTH, ICON_HEIGHT),
 )
-Veilstone_Galactic = pygame.image.load(
-    os.path.join("Assets", "Veilstone_Corner_Galactic_Symbol.png")
+Veilstone_Galactic = pygame.transform.scale(
+    pygame.image.load(os.path.join("Assets", "Veilstone_Corner_Galactic_Symbol.png")),
+    (ICON_WIDTH, ICON_HEIGHT),
 )
-Veilstone_Lightning = pygame.image.load(
-    os.path.join("Assets", "Veilstone_Corner_Lightning_Bolt.png")
+Veilstone_Lightning = pygame.transform.scale(
+    pygame.image.load(os.path.join("Assets", "Veilstone_Corner_Lightning_Bolt.png")),
+    (ICON_WIDTH, ICON_HEIGHT),
 )
-Veilstone_Moon = pygame.image.load(
-    os.path.join("Assets", "Veilstone_Corner_Moon_Stone.png")
+Veilstone_Moon = pygame.transform.scale(
+    pygame.image.load(os.path.join("Assets", "Veilstone_Corner_Moon_Stone.png")),
+    (ICON_WIDTH, ICON_HEIGHT),
 )
-Veilstone_Replay = pygame.image.load(
-    os.path.join("Assets", "Veilstone_Corner_Replay.png")
+Veilstone_Replay = pygame.transform.scale(
+    pygame.image.load(os.path.join("Assets", "Veilstone_Corner_Replay.png")),
+    (ICON_WIDTH, ICON_HEIGHT),
 )
 bg = pygame.transform.scale(
     pygame.image.load(os.path.join("Assets", "backgrond.png")), (WIDTH, HEIGHT)
@@ -46,7 +53,19 @@ bg = pygame.transform.scale(
 def draw_window(leftSprite, midSprite, rightSprite):
     WIN.fill((255, 255, 255))
     WIN.blit(bg, (0, 0))
-    WIN.blit(Veilstone_7, (leftSprite.x, leftSprite.y))
+    WIN.blit(
+        random.choice(
+            [
+                Veilstone_7,
+                Veilstone_Berries,
+                Veilstone_Galactic,
+                Veilstone_Lightning,
+                Veilstone_Moon,
+                Veilstone_Replay,
+            ]
+        ),
+        (leftSprite.x, leftSprite.y),
+    )
     WIN.blit(Veilstone_7, (midSprite.x, midSprite.y))
     WIN.blit(Veilstone_7, (rightSprite.x, rightSprite.y))
     pygame.display.update()
@@ -57,16 +76,8 @@ def draw_window(leftSprite, midSprite, rightSprite):
 
 # movement
 def icon_movement(keys_pressed, leftSprite, midSprite, rightSprite):
-    while leftSprite.y < LOWER_BOUND:
-        if keys_pressed[pygame.K_f]:
-            print("Correct")
-            break
-        leftSprite.y += 1
-        if leftSprite.y >= LOWER_BOUND:
-            print("Hello")
-            leftSprite.y = UPPER_BOUND
-            draw_window(leftSprite, midSprite, rightSprite)
-
+    """if keys_pressed[pygame.K_f]:
+    leftSprite.y += 1"""
     if keys_pressed[pygame.K_g]:
         midSprite.y += 1
     if keys_pressed[pygame.K_h]:
@@ -79,16 +90,26 @@ def main():
     rightSprite = pygame.Rect(ICON_XPOS_R, ICON_YPOS, ICON_WIDTH, ICON_HEIGHT)
     run = True
     clock = pygame.time.Clock()
+
     while run:
         clock.tick(rate)
+        keys_pressed = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                print("Hello")
+            if keys_pressed[pygame.K_f]:
+                run = False
+                print("Correct")
 
-        keys_pressed = pygame.key.get_pressed()
         icon_movement(keys_pressed, leftSprite, midSprite, rightSprite)
-
         draw_window(leftSprite, midSprite, rightSprite)
+    idle = True
+    while idle:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                idle = False
+                print("Hello")
 
     pygame.quit()
 
