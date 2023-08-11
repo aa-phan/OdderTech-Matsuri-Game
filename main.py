@@ -8,7 +8,7 @@ import glob
 WIDTH, HEIGHT = 900, 500
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("OdderTech Game Corner")
-rate = 15
+rate = 8
 ICON_WIDTH, ICON_HEIGHT = 130, 90
 ICON_XPOS_L, ICON_XPOS_M, ICON_XPOS_R = 175, 385, 595
 ICON_YPOS = 170
