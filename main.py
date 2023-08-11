@@ -2,17 +2,20 @@ import pygame
 import os
 import random
 import glob
+import subprocess
 
 # pygame setup
 
 WIDTH, HEIGHT = 900, 500
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("OdderTech Game Corner")
-rate = 8
+
+rate = 10
 ICON_WIDTH, ICON_HEIGHT = 130, 90
 ICON_XPOS_L, ICON_XPOS_M, ICON_XPOS_R = 175, 385, 595
 ICON_YPOS = 170
 LOWER_BOUND, UPPER_BOUND = 400, 50
+
 
 # assets
 
@@ -157,10 +160,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                print("Hello")
+                # print("Hello")
             if keys_pressed[pygame.K_f]:
                 run = False
-                print("Correct")
+                # print("Correct")
 
         # icon_movement(keys_pressed, leftSprite, midSprite, rightSprite)
         draw_bg()
@@ -176,10 +179,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                print("Hello")
+                # print("Hello")
             if keys_pressed[pygame.K_g]:
                 stop_con1 = False
-                print("Correct2")
+                # print("Correct2")
         draw_bg()
         WIN.blit(sprite_left, (leftSprite.x, leftSprite.y))
         sprite_mid = draw_window2(midSprite)
@@ -191,10 +194,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                print("Hello")
+                # print("Hello")
             if keys_pressed[pygame.K_h]:
                 stop_con2 = False
-                print("Correct3")
+                # print("Correct3")
         draw_bg()
         WIN.blit(sprite_left, (leftSprite.x, leftSprite.y))
         WIN.blit(sprite_mid, (midSprite.x, midSprite.y))
@@ -204,7 +207,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 idle = False
-                print("Hello")
+                # print("Hello")
         WIN.blit(sprite_right, (rightSprite.x, rightSprite.y))
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[pygame.K_SPACE]:
